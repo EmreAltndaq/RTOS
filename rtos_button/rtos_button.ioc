@@ -2,7 +2,7 @@
 Mcu.Family=STM32F1
 ProjectManager.MainLocation=Core/Src
 ProjectManager.ProjectFileName=rtos_button.ioc
-FREERTOS.Tasks01=buttonRead,40,128,button,Default,NULL,Dynamic,NULL,NULL
+FREERTOS.Tasks01=buttonRead,40,128,button,Default,NULL,Dynamic,NULL,NULL;myTask02,8,128,led,Default,NULL,Dynamic,NULL,NULL
 ProjectManager.KeepUserCode=true
 Mcu.UserName=STM32F103C8Tx
 Mcu.PinsNb=6

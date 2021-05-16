@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+uint16_t check = 0;
 
 /* USER CODE END Includes */
 
@@ -48,6 +49,13 @@ const osThreadAttr_t buttonRead_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityHigh,
 };
+/* Definitions for myTask02 */
+osThreadId_t myTask02Handle;
+const osThreadAttr_t myTask02_attributes = {
+  .name = "myTask02",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -56,6 +64,7 @@ const osThreadAttr_t buttonRead_attributes = {
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 void button(void *argument);
+void led(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -119,6 +128,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of buttonRead */
   buttonReadHandle = osThreadNew(button, NULL, &buttonRead_attributes);
+
+  /* creation of myTask02 */
+  myTask02Handle = osThreadNew(led, NULL, &myTask02_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -226,12 +238,34 @@ void button(void *argument)
   for(;;)
   {
 	if (HAL_GPIO_ReadPin(GPIOA, button_Pin) == GPIO_PIN_SET)
+		check = 1;
+	else
+		check = 0;
+	osDelay(1);
+  }
+  /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_led */
+/**
+* @brief Function implementing the myTask02 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_led */
+void led(void *argument)
+{
+  /* USER CODE BEGIN led */
+  /* Infinite loop */
+  for(;;)
+  {
+	if (check == 1)
 		HAL_GPIO_WritePin(GPIOA, led_Pin, GPIO_PIN_SET);
 	else
 		HAL_GPIO_WritePin(GPIOA, led_Pin, GPIO_PIN_RESET);
     osDelay(1);
   }
-  /* USER CODE END 5 */
+  /* USER CODE END led */
 }
 
  /**
