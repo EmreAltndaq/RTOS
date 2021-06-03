@@ -424,38 +424,12 @@ void show(void *argument) //led parlaklığı ayarlama ve ekrana bastırmayı ay
   /* Infinite loop */
   for(;;)
   {
-	  	if ((adcVal/10) < 204) {
-	  		map = 0;
-	  	}
-	  	else if ((adcVal/10) >= 204 && (adcVal/10) < 408) {
-	  		map = 1;
-	  	}
-	  	else if ((adcVal/10) >= 408 && (adcVal/10) < 612) {
-	  		map = 2;
-	  	}
-	  	else if ((adcVal/10) >= 612 && (adcVal/10) < 816) {
-	  		map = 3;
-	  	}
-	  	else if ((adcVal/10) >= 816 && (adcVal/10) < 1020) {
-	  		map = 4;
-	  	}
-	  	else if ((adcVal/10) >= 1020 && (adcVal/10) < 1224) {
-	  			map = 5;
-	  		}
-	  	else if ((adcVal/10) >= 1224 && (adcVal/10) < 1428) {
-	  			map = 6;
-	  		}
-	  	else if ((adcVal/10) >= 1428 && (adcVal/10) < 1632) {
-	  			map = 7;
-	  		}
-	  	else if ((adcVal/10) >= 1632 && (adcVal/10) < 1836) {
-	  			map = 8;
-	  		}
-	  	else if ((adcVal/10) >= 1836) {
-	  				map = 9;
-	  			}
+	  	uint16_t map(int In ,int InMin , int InMax , int OutMin , int OutMax ){
+		return (In - InMin) * (OutMax - OutMin) / (InMax - InMin) + OutMin;
+	}
+	mapped =map(adcVal, 0, 2048, 0, 9) ;
 	lcd_print(1, 1, "İTÜ RAKE");
-	sprintf(val,"%d",map);
+	sprintf(val,"%d",mapped);
 	lcd_print(2, 1, val);
 	lcd_clear();
     osDelay(1);
