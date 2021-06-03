@@ -371,7 +371,7 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_adc */
-void adc(void *argument)
+void adc(void *argument) // en yüksek önceliği buna verdim çünkü diğer işlemler buna bağlı çalışıyor.
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
@@ -393,7 +393,7 @@ void adc(void *argument)
 * @retval None
 */
 /* USER CODE END Header_brightness */
-void brightness(void *argument)
+void brightness(void *argument) //led parlaklığı ayarlama ve ekrana bastırmayı aynı öncelikte yaptım çünkü bunlar hemen hemen eş zamanlı olan işlemler ve birbirlerinden bağımsızlar.
 {
   /* USER CODE BEGIN brightness */
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
@@ -414,7 +414,7 @@ void brightness(void *argument)
 * @retval None
 */
 /* USER CODE END Header_show */
-void show(void *argument)
+void show(void *argument) //led parlaklığı ayarlama ve ekrana bastırmayı aynı öncelikte yaptım çünkü bunlar hemen hemen eş zamanlı olan işlemler ve birbirlerinden bağımsızlar.
 {
   /* USER CODE BEGIN show */
 	lcd_init(_LCD_4BIT, _LCD_FONT_5x8, _LCD_2LINE);
